@@ -7,6 +7,10 @@ urlpatterns = [
     path('project-detail/<str:pk>/', views.detail_project, name='project-detail'),
     path('create-project/', views.create_project, name='create-project'),
     path('update-project/<str:pk>/', views.update_project, name='update-project'),
-    path('delete-project/<str:pk>/', views.delete_project, name='delete-project')
+    path('delete-project/<str:pk>/', views.delete_project, name='delete-project'),
+
+    path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout'),
+    path('signup/', views.signup_user, name='signup')
 
 ]

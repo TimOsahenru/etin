@@ -10,8 +10,10 @@
     <p>About project: {{project.about|truncatewords:20}}</p>
     <a href="{{project.git_hub_link}}">GitHub repo</a>
     <a href="{{project.live_link}}">Live link</a>
+       {% if request.user == project.engineer %}
        <a href="{% url 'update-project' project.name %}">Edit Project</a>
         <a href="{% url 'delete-project' project.name %}">Delete Project</a>
+       {% endif %}
    </a>
     <hr>
 </div>
