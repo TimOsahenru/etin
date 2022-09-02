@@ -4,6 +4,10 @@ from django.contrib.auth.models import AbstractUser
 
 class SocialMediaHandle:
     pass
+    # user =
+    # name =
+    # icon =
+    # url =
 
 
 class User(AbstractUser):
