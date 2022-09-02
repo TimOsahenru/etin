@@ -12,4 +12,9 @@
 <hr>
 <h3> SOFTWARE ENGINEERS CONTACT</h3>
 <h4>Name: {{project.engineer.username|title}}</h4>
+<p>image</p>
+<h4>Email: {{project.engineer.email}}</h4>
+<h4>Mobile Number: {{project.engineer.mobile_number}}</h4>
+<h4>Social media handles</h4>
+<a href="{% url 'profile' project.engineer.username %}">View {{project.engineer.username|title}}'s profile</a>
 {% endblock %}

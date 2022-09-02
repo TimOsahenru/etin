@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Project
-from .forms import ProjectCreateForm
+from .forms import ProjectCreateForm, UserUpdateForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth.decorators import login_required
 
 
@@ -83,11 +83,11 @@ def login_user(request):
     page = 'login-page'
 
     if request.method == 'POST':
-        # email =
-        username = request.POST.get('username').lower()
+        email = request.POST.get('email')
+        # username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('projects')
@@ -112,8 +112,9 @@ def signup_user(request):
         return redirect('projects')
 
     if request.method == 'POST':
-        # email =
+
         username = request.POST.get('username').lower()
+        email = request.POST.get('email')
         password = request.POST.get('password')
         password1 = request.POST.get('password1')
 
@@ -121,11 +122,38 @@ def signup_user(request):
             if User.objects.filter(username=username).exists():
                 messages.error(request, 'Username already in use')
                 return redirect('signup')
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already in use')
+                return redirect('signup')
             else:
-                user = User.objects.create_user(username=username, password=password)
+                user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
                 return redirect('login')
                 # return to profile
 
     context = {}
     return render(request, 'login-signup.html', context)
+
+
+# ----------------- Engineer's Profile --------------------
+def engineer_profile(request, pk):
+    engineer = User.objects.get(username=pk)
+    my_projects = engineer.project_set.all()
+
+    context = {'engineer': engineer, 'my_projects': my_projects}
+    return render(request, 'profile.html', context)
+
+
+# ----------------- Engineer's Profile Update--------------------
+def engineer_profile_update(request):
+    user = request.user
+    form = UserUpdateForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk=user.username)
+
+    context = {'form': form}
+    return render(request, 'profile-update.html', context)

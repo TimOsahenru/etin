@@ -1,7 +1,7 @@
 <header>
   <h4><a href="/">LOGO</a> </h4>
   {% if request.user.is_authenticated %}
-  <p><a href="{% url 'logout' %}">Logout</a> {{request.user|title}}</p>
+  <p><a href="{% url 'logout' %}">Logout</a> {{request.user.username|title}}</p>
   {% else %}
   <a href="{% url 'login' %}">Login</a>
   {% endif %}
