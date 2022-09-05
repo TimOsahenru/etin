@@ -1,26 +1,57 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>etin</title>
-    <style>
-         .container {
-        max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #9A7B4F;
-    border-radius: 5px;
-    -webkit-box-shadow: 12px 12px 23px -14px rgba(0, 0, 0, 1);
-    box-shadow: 12px, 12px, 23px, 14px rgba(0, 0, 0, 1);
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    {% include 'header.html' %}
-    {% block content %}
+  <meta charset="utf-8">
+  <title>etin</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
 
-    {% endblock %}
-</div>
+  <!-- Favicons -->
+  <link href="{% static 'img/yin-yang.svg' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+{% include 'header.html' %}
+{% block content %}
+
+{% endblock %}
+{% include 'footer.html' %}
+
+ <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JavaScript Libraries -->
+  <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/jquery/jquery-migrate.min.js' %}"></script>
+  <script src="{% static 'lib/popper/popper.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js"></script>
+  <script src="{% static 'lib/counterup/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'lib/counterup/jquery.counterup.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+  <script src="{% static 'lib/typed/typed.min.js' %}"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="{% static 'contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

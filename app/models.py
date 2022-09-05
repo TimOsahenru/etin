@@ -2,16 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class SocialMediaHandle:
-    pass
-    # user =
-    # name =
-    # icon =
-    # url =
+class Expertise(models.Model):
+    name = models.CharField(max_length=200)
 
 
 class User(AbstractUser):
     username = models.CharField(max_length=200, null=True)
+    expertise = models.ForeignKey(Expertise, on_delete=models.SET_NULL, null=True)
     email = models.EmailField(unique=True, null=True)
     mobile_number = models.IntegerField(null=True, blank=True)
     location = models.CharField(max_length=200, default='Country | State')

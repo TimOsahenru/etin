@@ -36,14 +36,14 @@ def create_project(request):
             project = form.save(commit=False)
             project.engineer = user
             project.save()
-            return redirect('projects')
-            # return to profile
+            # return redirect('projects')
+            return redirect('profile', pk=user.username)
 
     context = {'form': form, 'page': page}
     return render(request, 'create-update-project.html', context)
 
 
-# -----------------Project Edit--------------------
+# -----------------Project Update--------------------
 @login_required(login_url='login')
 def update_project(request, pk):
     project = Project.objects.get(name=pk)
@@ -53,8 +53,8 @@ def update_project(request, pk):
         form = ProjectCreateForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
-            # Later redirect to profile
+            # return redirect('projects')
+            return redirect('profile', pk=request.user.username)
 
     context = {'form': form}
     return render(request, 'create-update-project.html', context)
@@ -68,7 +68,7 @@ def delete_project(request, pk):
     if request.method == 'POST':
         project.delete()
         return redirect('projects')
-    # Later redirect to profile
+        return redirect('profile', pk=request.user.username)
     context = {'project': project}
 
     return render(request, 'project-delete.html', context)
@@ -90,7 +90,8 @@ def login_user(request):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('projects')
+            return redirect('profile', pk=request.user.username)
+            # return redirect('projects')
         else:
             messages.error(request, 'Email or Password does not exist')
 

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for project in projects %}
+<div>
+   <a href="{% url 'project-detail' project.name %}" style="text-decoration:none; color:white;">
+        <h4>Name: {{project.name|title}} </h4>
+       <img src="{{ project.image.url }}" width="200" height="200">
+    <p>About project: {{project.about|truncatewords:20}}</p>
+    <a href="{{project.git_hub_link}}">GitHub repo</a>
+    <a href="{{project.live_link}}">Live link</a>
+       {% if request.user == project.engineer %}
+       <a href="{% url 'update-project' project.name %}">Edit Project</a>
+        <a href="{% url 'delete-project' project.name %}">Delete Project</a>
+       {% endif %}
+   </a>
+    <hr>
+</div>
+{% empty %}
+<h4>No projects, upload one</h4>
+{% endfor %}
+{% endblock %}

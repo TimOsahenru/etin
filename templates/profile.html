@@ -1,33 +1,124 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h3>Name: {{engineer.username|title}}</h3>
-<img src="{{ engineer.avatar.url }}" width="100" height="100">
-<h3>Email: {{engineer.email}}</h3>
-<h3>Mobile Number: {{engineer.mobile_number}}</h3>
-<h3>Location: {{engineer.location|title}}</h3>
-<h3>Years of experience: {{engineer.years_of_experience}}</h3>
-<h3>Stack: {{engineer.tech_stack|title}}</h3>
-<h3>About: {{engineer.about_me}}</h3>
-<hr>
-<a href="{% url 'create-project' %}">Add Project</a>
-<a href="{% url 'update-profile' %}">Update Profile</a>
-{% for my_project in my_projects %}
-<div>
-   <a href="{% url 'project-detail' my_project.name %}" style="text-decoration:none; color:white;">
-        <h4>Name: {{my_project.name|title}} </h4>
-       <img src="{{ my_project.image.url }}" width="200" height="200">
-    <p>About project: {{my_project.about|truncatewords:20}}</p>
-    <a href="{{my_project.git_hub_link}}">GitHub repo</a>
-    <a href="{{my_project.live_link}}">Live link</a>
-       {% if request.user == my_project.engineer %}
-       <a href="{% url 'update-project' my_project.name %}">Edit Project</a>
-        <a href="{% url 'delete-project' my_project.name %}">Delete Project</a>
-       {% endif %}
-   </a>
-    <hr>
-</div>
-{% empty %}
-<h4>No projects, upload one</h4>
-{% endfor %}
+<section id="about" class="about-mf sect-pt4 route">
+    <div class="container">
+       <div class="col-md-12" style="margin-bottom:20px;">
+                <a href="/" class="button button-a button-medium button-rouded">&#8592; back</a>
+
+                        </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="box-shadow-full">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-sm-6 col-md-5">
+                    <div class="about-img">
+                      <img src="{{engineer.avatar.url}}" class="img-fluid rounded b-shadow-a" alt="">
+                    </div>
+                  </div>
+                  <div class="col-sm-6 col-md-7">
+                    <div class="about-info">
+                      <p><span class="title-s">Name: </span> <span>{{engineer.username|title}}</span></p>
+                      <p><span class="title-s">Expertise: </span> <span>full stack developer</span></p>
+                      <p><span class="title-s">Email: </span> <span>{{engineer.email}}</span></p>
+                      <p><span class="title-s">Phone: </span> <span>{{engineer.mobile_number}}</span></p>
+                      <p><span class="title-s">YOE: </span> <span>{{engineer.years_of_experience}}</span></p>
+                      <p><span class="title-s">Location: </span> <span>{{engineer.location|title}}</span></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="skill-mf">
+                  <p class="title-s">STACK</p>
+                  <span>{{engineer.tech_stack}}</span>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="85" aria-valuemin="0"
+                      aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="about-me pt-4 pt-md-0">
+                  <div class="title-box-2">
+                    <h5 class="title-left">
+                      {{engineer.username|title}}'s Profile
+                    </h5>
+                  </div>
+                  <p class="lead">{{engineer.about_me}}</p>
+                </div>
+                {% if request.user == engineer %}
+                <div class="col-md-12">
+                  <a href="{% url 'update-profile' %}" class="button button-a button-big button-rouded">Update profile</a>
+                        </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--/ Section Blog Star /-->
+<section id="blog" class="blog-mf sect-pt4 route">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="title-box text-center">
+            <div class="line-mf"></div>
+            <h5 class="title-a">
+              OTHER PROJECTS BY {{engineer.username|title}}
+            </h5>
+            {% if request.user.is_authenticated %}
+            <div class="col-md-12">
+                  <a href="{% url 'create-project' %}" class="button button-a button-big button-rouded">Create more projects</a>
+
+                        </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        {% for my_project in my_projects %}
+        <div class="col-md-4">
+          <div class="card card-blog">
+            <div class="card-img">
+              <a href="{% url 'project-detail' my_project.name %}"><img src="{{my_project.image.url}}" width="867" height="479" alt="" class="img-fluid"></a>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="{% url 'project-detail' my_project.name %}">{{my_project.name|title}}</a></h3>
+              <p class="card-description">{{my_project.about|truncatewords:20}}</p>
+            </div>
+            <!--<div class="card-footer">
+              <div class="post-author">
+                <a href="#">
+                  <img src="img/testimonial-2.jpg" alt="" class="avatar rounded-circle">
+                  <span class="author">Morgan Freeman</span>
+                </a>
+              </div>
+              <div class="post-date">
+                <span class="ion-ios-clock-outline"></span> 10 min
+              </div>
+            </div>-->
+            {% if request.user == my_project.engineer %}
+            <div class="card-category-box">
+                <a href="{% url 'update-project' my_project.name %}">
+                <div class="card-category">
+                  <h6 class="category">Update Project</h6>
+                </div>
+                  </a>
+               <a href="{% url 'delete-project' my_project.name %}">
+                <div class="card-category">
+                  <h6 class="category">Delete Project</h6>
+                </div>
+                  </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!--/ Section Blog End /-->
 {% endblock %}
