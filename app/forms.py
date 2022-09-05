@@ -21,9 +21,10 @@ class ProjectCreateForm(forms.ModelForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['mobile_number', 'location', 'years_of_experience', 'tech_stack', 'about_me', 'avatar']
+        fields = ['mobile_number', 'expertise', 'location', 'years_of_experience', 'tech_stack', 'about_me', 'avatar']
         widgets = {
             'mobile_number': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone number', 'data-msg': 'Phone number required'}),
+            'expertise': forms.Select(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country | State',  'data-msg': 'Location required'}),
             'years_of_experience': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Years of experience'}),
             'tech_stack': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Stack1 | Stack2 | Stack3'}),

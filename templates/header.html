@@ -132,8 +132,14 @@
       </div>
       {% if request.user.is_authenticated %}
       <div class="post-author">
-                <a class="nav-link js-scroll" href="{% url 'logout' %}">
+                <a class="nav-link js-scroll" href="{% url 'profile' request.user.username %}">
                   <img src="{{request.user.avatar.url}}" alt="" class="avatar rounded-circle">
+                  <!--<span class="author">Logout</span>-->
+                </a>
+              </div>
+      <div class="post-author">
+                <a class="nav-link js-scroll" href="{% url 'logout' %}">
+                  <!--<img src="{{request.user.avatar.url}}" alt="" class="avatar rounded-circle">-->
                   <span class="author">Logout</span>
                 </a>
               </div>
