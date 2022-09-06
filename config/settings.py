@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 
     # Custom Apps
     'app',
+
+    # third party apps
+    'hitcount',
 ]
 
 AUTH_USER_MODEL = 'app.User'

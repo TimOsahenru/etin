@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
 
 
 class Expertise(models.Model):
@@ -34,6 +36,8 @@ class Project(models.Model):
     about = models.TextField(null=True, blank=True)
     tech_used = models.CharField(max_length=100, default='Stack1 | stack2')
     image = models.ImageField(null=True, blank=True, default=None)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
+                                        related_query_name='hit_count_generic_relation')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

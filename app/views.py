@@ -5,7 +5,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import User
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic.detail import DetailView
+from hitcount.views import HitCountDetailView
 
 # -----------------All Projects--------------------
 def projects(request):
@@ -16,11 +17,21 @@ def projects(request):
 
 
 # -----------------Project Detail--------------------
-def detail_project(request, pk):
-    project = Project.objects.get(name=pk)
+class DetailProject(HitCountDetailView):
+    model = Project
+    template_name = '../templates/project-detail.html'
+    context_object_name = 'project'
+    count_hit = True
 
-    context = {'project': project}
-    return render(request, 'project-detail.html', context)
+    def get_object(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        project = Project.objects.get(name=pk)
+        return project
+# def detail_project(request, pk):
+#     project = Project.objects.get(name=pk)
+#
+#     context = {'project': project}
+#     return render(request, 'project-detail.html', context)
 
 
 # -----------------Project Create--------------------
@@ -158,3 +169,8 @@ def engineer_profile_update(request):
 
     context = {'form': form}
     return render(request, 'profile-update.html', context)
+
+
+# ----------------- Project Views --------------------
+def project_views(request):
+    pass

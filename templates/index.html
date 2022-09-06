@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 {% block content %}
   <!--/ Intro Skew Star /-->
   <div id="home" class="intro route bg-image" style="background-image: url({% static 'img/bg_3.jpg' %})">
@@ -35,6 +36,7 @@
       </div>
       <div class="row">
         {% for project in projects %}
+
         <div class="col-md-4">
           <div class="card card-blog">
             <div class="card-img">
@@ -54,7 +56,7 @@
                 </a>
               </div>
               <div class="post-date">
-                <span class="ion-ios-heart"></span> 10 views
+                <span class="ion-ios-eye"></span> {% get_hit_count for project %} views
               </div>
             </div>
             <div class="card-category-box">
