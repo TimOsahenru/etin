@@ -18,6 +18,4 @@ urlpatterns = [
     path('profile/<str:pk>/', views.engineer_profile, name='profile'),
     path('update-profile/', views.engineer_profile_update, name='update-profile'),
 
-    path('view-project/', views.project_views, name='view-project')
-
 ]

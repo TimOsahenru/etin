@@ -47,7 +47,6 @@ def create_project(request):
             project = form.save(commit=False)
             project.engineer = user
             project.save()
-            # return redirect('projects')
             return redirect('profile', pk=user.username)
 
     context = {'form': form, 'page': page}
@@ -64,7 +63,6 @@ def update_project(request, pk):
         form = ProjectCreateForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            # return redirect('projects')
             return redirect('profile', pk=request.user.username)
 
     context = {'form': form}
@@ -78,7 +76,6 @@ def delete_project(request, pk):
 
     if request.method == 'POST':
         project.delete()
-        # return redirect('projects')
         return redirect('profile', pk=request.user.username)
     context = {'project': project}
 
@@ -95,17 +92,15 @@ def login_user(request):
 
     if request.method == 'POST':
         email = request.POST.get('email')
-        # username = request.POST.get('username').lower()
         password = request.POST.get('password')
 
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('profile', pk=request.user.username)
-            # return redirect('projects')
         else:
             messages.error(request, 'Email or Password does not exist')
-
+            return redirect('login')
     context = {'page': page}
     return render(request, 'login-signup.html', context)
 
@@ -113,7 +108,6 @@ def login_user(request):
 # ----------------- Logout --------------------
 def logout_user(request):
     logout(request)
-    # later redirect to profile
     return redirect('login')
 
 
@@ -141,7 +135,9 @@ def signup_user(request):
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
                 return redirect('login')
-                # return to profile
+        else:
+            messages.error(request, 'Password do not match')
+            return redirect('signup')
 
     context = {}
     return render(request, 'login-signup.html', context)
@@ -169,8 +165,3 @@ def engineer_profile_update(request):
 
     context = {'form': form}
     return render(request, 'profile-update.html', context)
-
-
-# ----------------- Project Views --------------------
-def project_views(request):
-    pass

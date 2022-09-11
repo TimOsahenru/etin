@@ -2,80 +2,75 @@
 {% load static %}
 {% load hitcount_tags %}
 {% block content %}
-  <!--/ Intro Skew Star /-->
-  <div id="home" class="intro route bg-image" style="background-image: url({% static 'img/bg_3.jpg' %})">
-    <div class="overlay-itro"></div>
-    <div class="intro-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <!--<p class="display-6 color-d">Hello, world!</p>-->
-          <h1 class="intro-title mb-4">HIRING DEVELOPER MADE EASY</h1>
-          <p class="intro-subtitle"><span class="text-slider-items">Mobile Developer,Web Developer,Dev Ops,Frontend Developer</span><strong class="text-slider"></strong></p>
-          <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="{% url 'signup' %}" role="button">SIGNUP AS A DEVELOPER</a></p>
-        </div>
+<!--/ Intro Skew Star /-->
+<div id="home" class="intro route bg-image" style="background-image: url({% static 'img/bg_3.jpg' %})">
+  <div class="overlay-itro"></div>
+  <div class="intro-content display-table">
+    <div class="table-cell">
+      <div class="container">
+        <h1 class="intro-title mb-4">HIRING DEVELOPER MADE EASY</h1>
+        <p class="intro-subtitle"><span class="text-slider-items">Mobile Developer,Web Developer,Dev Ops,Frontend Developer</span><strong class="text-slider"></strong></p>
+        <p class="pt-3"><a class="btn btn-primary btn js-scroll px-4" href="{% url 'signup' %}" role="button">SIGNUP AS A DEVELOPER</a></p>
       </div>
     </div>
   </div>
-  <!--/ Intro Skew End /-->
+</div>
+<!--/ Intro Skew End /-->
 
-  <!--/ Section Blog Star /-->
-  <section id="blog" class="blog-mf sect-pt4 route">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="title-box text-center">
-            <h3 class="title-a">
-              recent projects
-            </h3>
-            <!--<p class="subtitle-a">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            </p>-->
-            <div class="line-mf"></div>
-          </div>
+<!--/ Section Project /-->
+<section id="blog" class="blog-mf sect-pt4 route">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="title-box text-center">
+          <h3 class="title-a">
+            recent projects
+          </h3>
+          <div class="line-mf"></div>
         </div>
-      </div>
-      <div class="row">
-        {% for project in projects %}
-
-        <div class="col-md-4">
-          <div class="card card-blog">
-            <div class="card-img">
-              <a href="{% url 'project-detail' project.name %}"><img src="{{project.image.url}}" alt="" width="867" height="479" class="img-fluid"></a>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title"><a href="{% url 'project-detail' project.name %}">{{project.name|title}}</a></h3>
-              <p class="card-description">
-                {{project.about|truncatewords:20}}
-              </p>
-            </div>
-            <div class="card-footer">
-              <div class="post-author">
-                <a href="#">
-                  <img src="{{project.engineer.avatar.url}}" alt="" class="avatar rounded-circle">
-                  <span class="author">{{project.engineer.username|title}}</span>
-                </a>
-              </div>
-              <div class="post-date">
-                <span class="ion-ios-eye"></span> {% get_hit_count for project %} views
-              </div>
-            </div>
-            <div class="card-category-box">
-                <a href="{{project.git_hub_link}}">
-                <div class="card-category">
-                  <h6 class="category">GitHub</h6>
-                </div>
-                  </a>
-               <a href="{{project.live_link}}">
-                <div class="card-category">
-                  <h6 class="category">Live url</h6>
-                </div>
-                  </a>
-              </div>
-          </div>
-        </div>
-        {% endfor %}
       </div>
     </div>
-  </section>
-  <!--/ Section Blog End /-->
+    <div class="row">
+      {% for project in projects %}
+      <div class="col-md-4">
+        <div class="card card-blog">
+          <div class="card-img">
+            <a href="{% url 'project-detail' project.name %}"><img src="{{project.image.url}}" alt="" width="867" height="479" class="img-fluid"></a>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title"><a href="{% url 'project-detail' project.name %}">{{project.name|title}}</a></h3>
+            <p class="card-description">
+              {{project.about|truncatewords:20}}
+            </p>
+          </div>
+          <div class="card-footer">
+            <div class="post-author">
+              <a href="#">
+                <img src="{{project.engineer.avatar.url}}" alt="" class="avatar rounded-circle">
+                <span class="author">{{project.engineer.username|title}}</span>
+              </a>
+            </div>
+            <div class="post-date">
+              <span class="ion-ios-eye"></span> {% get_hit_count for project %} views
+            </div>
+          </div>
+          <div class="card-category-box">
+            <a href="{{project.git_hub_link}}">
+              <div class="card-category">
+                <h6 class="category">GitHub</h6>
+              </div>
+            </a>
+            <a href="{{project.live_link}}">
+              <div class="card-category">
+                <h6 class="category">Live url</h6>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!--/ Section project end /-->
 {% endblock %}
