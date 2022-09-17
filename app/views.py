@@ -1,17 +1,28 @@
 from django.shortcuts import render, redirect
-from .models import Project
+from .models import Project, User, Expertise
 from .forms import ProjectCreateForm, UserUpdateForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from hitcount.views import HitCountDetailView
+from .filters import EngineerFilter
+
 
 # -----------------All Projects--------------------
 def projects(request):
+    # if 'search_area' in request.GET:
+    #     search_area = request.GET['search_area']
+    #     engineers = User.objects.all()
+    #     projects = engineers.project_set.filter(expertise__icontains=search_area)
+    #
+    #     # projects = Project.objects.all()
+    #     # engineers = projects.user_set.filter(expertise__icontains=search_area)
+    #     # projects = Project.objects.filter(expertise__icontains=search_area)
+    # else:
     projects = Project.objects.all()
 
+    # context = {'projects': projects, 'engineers': engineers}
     context = {'projects': projects}
     return render(request, 'index.html', context)
 
