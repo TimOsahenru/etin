@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from hitcount.views import HitCountDetailView
 from .filters import EngineerFilter
+from django.core.paginator import Paginator
 
 
 # -----------------All Projects--------------------
@@ -21,9 +22,12 @@ def projects(request):
     #     # projects = Project.objects.filter(expertise__icontains=search_area)
     # else:
     projects = Project.objects.all()
+    page = Paginator(projects, 6)
+    page_list = request.GET.get('page')
+    page = page.get_page(page_list)
 
     # context = {'projects': projects, 'engineers': engineers}
-    context = {'projects': projects}
+    context = {'page': page}
     return render(request, 'index.html', context)
 
 

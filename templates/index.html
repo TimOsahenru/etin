@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="row">
-      {% for project in projects %}
+      {% for project in page.object_list %}
       <div class="col-md-4">
         <div class="card card-blog">
           <div class="card-img">
@@ -69,6 +69,39 @@
         </div>
       </div>
       {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <nav class="pagination-a">
+          <ul class="pagination justify-content-end">
+            {% if page.has_previous %}
+            <li class="page-item disabled">
+              <a class="page-link" href="{% url 'projects' %}?page={{page.previous_page_number}}">
+                <span class="ion-ios-arrow-back"></span>
+              </a>
+            </li>
+            {% endif %}
+            {% for num_page in page.paginator.page_range %}
+            {% if page.number == num_page %}
+            <li class="page-item active">
+              <a class="page-link" href="{% url 'projects' %}?page={{num_page}}">{{num_page}}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+              <a class="page-link" href="{% url 'projects' %}?page={{num_page}}">{{num_page}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+            <li class="page-item next">
+              <a class="page-link" href="{% url 'projects' %}?page={{page.next_page_number}}">
+                <span class="ion-ios-arrow-forward"></span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </section>
